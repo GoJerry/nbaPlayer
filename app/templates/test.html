@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    {
+        function changepType() {
+            $.ajax({
+                async: false,
+                // url: "${ctx}/res/factoryAssembly/ajax2",
+                url: "http://127.0.0.1:5800/nab/player",
+                type: "GET",
+                data: {
+                    playerUrl: $("#yxmc").val(),
+                    game: $("#yxmc").val(),
+                },
+                dataType: "json",
+                success: function (data) {
+                    $("#tbody").empty(); //清空上一次下拉的数据
+                    jQuery.each(data, function (i, item) { //循环这个集合
+                        alert(item.goodsName + "," + item.num);
+                        var n = $('#tbody').append('<tr>' +
+                            '<td readonly="false"><input id="goodsName" value="' + item.goodsName + '">' + '<td></td>' +
+                            '<td readonly="false"><input id="num" value="' + item.num + '">' + '</td></tr>');
+                    });
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

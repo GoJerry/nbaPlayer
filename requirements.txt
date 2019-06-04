@@ -1,0 +1,6 @@
+scrapy
+requests
+flask
+wtforms
+werkzeug
+pyecharts
