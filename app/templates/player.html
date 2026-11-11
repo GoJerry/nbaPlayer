@@ -5,18 +5,34 @@
     <title>{{result_json.name + result_json.game +"生涯数据"}}</title>
     <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        .summary { margin: 12px 0 20px; font-size: 15px; color: #333; }
+        .summary b { color: #c03; }
+        table { border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+        th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: center; }
+        th { background: #f5f5f5; }
+    </style>
 </head>
 <body>
 <div id="bar" style="width:1000px; height:600px;"></div>
+{% if result_json.summary %}
+<div class="summary">
+    共 <b>{{ result_json.summary.seasons }}</b> 个赛季
+    {% if result_json.summary.points_avg %} · 生涯赛季场均得分 <b>{{ result_json.summary.points_avg }}</b>{% endif %}
+    {% if result_json.summary.rebounds_avg %} · 篮板 <b>{{ result_json.summary.rebounds_avg }}</b>{% endif %}
+    {% if result_json.summary.assists_avg %} · 助攻 <b>{{ result_json.summary.assists_avg }}</b>{% endif %}
+    {% if result_json.summary.points_peak %} · 得分巅峰：{{ result_json.summary.points_peak_season }} 赛季场均 <b>{{ result_json.summary.points_peak }}</b>{% endif %}
+</div>
+{% endif %}
 <script>
     $(
         function () {
             var result_json = '{{ result_json|tojson }}';
-            // var result = JSON.parse(result_json);
             var chart = echarts.init(document.getElementById('bar'), 'gray', {renderer: 'canvas'});
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:5800/lineChart",
+                url: "/lineChart",
                 dataType: 'json',
                 data: {result: result_json},
                 success: function (result) {
@@ -26,5 +42,18 @@
         }
     )
 </script>
+{% set rows = result_json.data_list %}
+{% if rows %}
+<table>
+    <thead>
+    <tr>{% for k in rows[0].keys() %}<th>{{ k }}</th>{% endfor %}</tr>
+    </thead>
+    <tbody>
+    {% for row in rows %}
+    <tr>{% for k in rows[0].keys() %}<td>{{ row.get(k, "") }}</td>{% endfor %}</tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 </body>
 </html>

@@ -1,6 +1,6 @@
-scrapy
-requests
-flask
-wtforms
-werkzeug
-pyecharts
+Flask>=3.0
+Werkzeug>=3.0
+WTForms>=3.1
+requests>=2.31
+Scrapy>=2.11
+pyecharts>=2.0
