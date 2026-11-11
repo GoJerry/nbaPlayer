@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>nbaPlayer - NBA 球员生涯数据曲线</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; line-height: 1.9; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
+    </style>
 </head>
 <body>
-<h1>欢迎来到公众号: Python编程与实战</h1>
-<img src="//upload-images.jianshu.io/upload_images/16366265-ea5463b385ef092a.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/900/format/webp">
+<h1>nbaPlayer：用 Python 自动生成 NBA 球员生涯数据曲线</h1>
+<p>公众号：Python编程与实战</p>
+<h2>快速开始</h2>
+<ul>
+    <li>查看全部支持的球队：<a href="/api/teams">/api/teams</a></li>
+    <li>球队球员名单（示例：湖人）：<a href="/nba/team?name=湖人">/nba/team?name=湖人</a></li>
+    <li>现役球员生涯曲线（示例：詹姆斯常规赛）：<a href="/nba/player?player=lebronjames-650.html&game=0">/nba/player?player=lebronjames-650.html&amp;game=0</a></li>
+    <li>查看全部支持的退役球星：<a href="/api/players/retired">/api/players/retired</a></li>
+    <li>退役球星生涯曲线（示例：乔丹季后赛）：<a href="/retire/player?retire=乔丹&game=1">/retire/player?retire=乔丹&amp;game=1</a></li>
+</ul>
+<p>参数说明：<code>game</code> 0 为常规赛、1 为季后赛；<code>color</code> 可选，设置图表背景色。</p>
 </body>
 </html>

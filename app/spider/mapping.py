@@ -1,6 +1,10 @@
 # coding: utf-8
+"""球队与退役球星的名称映射。
+
+数据来源：球队为虎扑 NBA 球员页的 URL slug，
+退役球星为 stat-nba 的球员编号。
+"""
 __author__ = 'Jerry'
-# 公众号：Python编程与实战,欢迎关注点赞
 
 term_mapping = {
     "火箭": "rockets",
@@ -54,13 +58,23 @@ retire_mapping = {
 
 
 def verification(team):
-    team = term_mapping.get(team)  # 球队名称
-    return team
+    """球队中文名 -> 虎扑 URL slug，找不到返回 None。"""
+    return term_mapping.get(team)
 
 
 def retire_verify(name):
-    url = retire_mapping.get(name)
-    return url
+    """退役球星中文名 -> stat-nba 编号，找不到返回 None。"""
+    return retire_mapping.get(name)
+
+
+def all_teams():
+    """全部支持的球队（供 /api/teams 发现接口使用）。"""
+    return dict(term_mapping)
+
+
+def all_retired_players():
+    """全部支持的退役球星（供 /api/players/retired 发现接口使用）。"""
+    return dict(retire_mapping)
 
 
 if __name__ == '__main__':
