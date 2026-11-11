@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ comparison.player1 }} vs {{ comparison.player2 }} - 生涯对比</title>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        .summary { margin: 12px 0 20px; font-size: 15px; color: #333; }
+        .summary b { color: #c03; }
+        table { border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 6px 12px; text-align: center; }
+        th { background: #f5f5f5; }
+        td.leader { font-weight: bold; color: #c03; }
+    </style>
+</head>
+<body>
+<h2>{{ comparison.player1 }} vs {{ comparison.player2 }}（{{ game }}）</h2>
+<div id="line" style="width:1000px; height:500px;"></div>
+<div id="radar" style="width:700px; height:500px;"></div>
+
+<div class="summary">
+    {{ comparison.player1 }}：共 <b>{{ comparison.summary1.seasons }}</b> 个赛季
+    {% if comparison.summary1.points_peak %} · 得分巅峰 {{ comparison.summary1.points_peak_season }} 场均 <b>{{ comparison.summary1.points_peak }}</b>{% endif %}
+    {% if analysis1.trend %} · 得分趋势 <b>{{ analysis1.trend }}</b>{% endif %}
+    {% if analysis1.prime_window %} · 巅峰窗口 {{ analysis1.prime_window.seasons }} 场均 <b>{{ analysis1.prime_window.points_avg }}</b>{% endif %}
+</div>
+<div class="summary">
+    {{ comparison.player2 }}：共 <b>{{ comparison.summary2.seasons }}</b> 个赛季
+    {% if comparison.summary2.points_peak %} · 得分巅峰 {{ comparison.summary2.points_peak_season }} 场均 <b>{{ comparison.summary2.points_peak }}</b>{% endif %}
+    {% if analysis2.trend %} · 得分趋势 <b>{{ analysis2.trend }}</b>{% endif %}
+    {% if analysis2.prime_window %} · 巅峰窗口 {{ analysis2.prime_window.seasons }} 场均 <b>{{ analysis2.prime_window.points_avg }}</b>{% endif %}
+</div>
+
+<table>
+    <thead>
+    <tr><th>指标（生涯赛季场均）</th><th>{{ comparison.player1 }}</th><th>{{ comparison.player2 }}</th><th>差值</th><th>领先</th></tr>
+    </thead>
+    <tbody>
+    {% for row in comparison.metrics %}
+    <tr>
+        <td>{{ row.metric }}</td>
+        <td class="{{ 'leader' if row.leader == comparison.player1 }}">{{ row.player1_avg if row.player1_avg is not none else '-' }}</td>
+        <td class="{{ 'leader' if row.leader == comparison.player2 }}">{{ row.player2_avg if row.player2_avg is not none else '-' }}</td>
+        <td>{{ row.diff if row.diff is not none else '-' }}</td>
+        <td>{{ row.leader }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    echarts.init(document.getElementById('line'), 'gray', {renderer: 'canvas'})
+        .setOption({{ line_options|tojson }});
+    echarts.init(document.getElementById('radar'), 'gray', {renderer: 'canvas'})
+        .setOption({{ radar_options|tojson }});
+</script>
+</body>
+</html>

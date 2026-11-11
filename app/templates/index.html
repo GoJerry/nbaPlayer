@@ -19,6 +19,14 @@
     <li>查看全部支持的退役球星：<a href="/api/players/retired">/api/players/retired</a></li>
     <li>退役球星生涯曲线（示例：乔丹季后赛）：<a href="/retire/player?retire=乔丹&game=1">/retire/player?retire=乔丹&amp;game=1</a></li>
 </ul>
-<p>参数说明：<code>game</code> 0 为常规赛、1 为季后赛；<code>color</code> 可选，设置图表背景色。</p>
+<h2>官方数据源与数据分析（新）</h2>
+<ul>
+    <li>按英文全名查球员（官方 stats.nba.com 数据，示例：詹姆斯常规赛）：<a href="/nba/player2?name=LeBron%20James&game=0">/nba/player2?name=LeBron James&amp;game=0</a></li>
+    <li>单人分析接口（数据 + 概要 + 趋势/巅峰窗口/稳定性）：<a href="/api/analysis/player?name=LeBron%20James&game=0">/api/analysis/player?name=LeBron James&amp;game=0</a></li>
+    <li>双人对比页（示例：詹姆斯 vs 库里）：<a href="/compare?player1=LeBron%20James&player2=Stephen%20Curry&game=0">/compare?player1=LeBron James&amp;player2=Stephen Curry&amp;game=0</a></li>
+    <li>双人对比接口：<a href="/api/analysis/compare?player1=LeBron%20James&player2=Stephen%20Curry&game=0">/api/analysis/compare</a></li>
+    <li>数据源清单：<a href="/api/sources">/api/sources</a></li>
+</ul>
+<p>参数说明：<code>game</code> 0 为常规赛、1 为季后赛；<code>color</code> 可选，设置图表背景色。官方数据源按英文全名查询（如 <code>LeBron James</code>），覆盖现役与历史球员。</p>
 </body>
 </html>

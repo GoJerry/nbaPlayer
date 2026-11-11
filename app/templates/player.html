@@ -25,6 +25,16 @@
     {% if result_json.summary.points_peak %} · 得分巅峰：{{ result_json.summary.points_peak_season }} 赛季场均 <b>{{ result_json.summary.points_peak }}</b>{% endif %}
 </div>
 {% endif %}
+{% if result_json.analysis %}
+<div class="summary">
+    数据分析
+    {% if result_json.analysis.trend %} · 得分趋势 <b>{{ result_json.analysis.trend }}</b>（斜率 {{ result_json.analysis.points_slope }}/季）{% endif %}
+    {% if result_json.analysis.prime_window %} · 巅峰窗口 {{ result_json.analysis.prime_window.seasons }} 场均得分 <b>{{ result_json.analysis.prime_window.points_avg }}</b>{% endif %}
+    {% if result_json.analysis.stability %} · 得分稳定性 <b>{{ result_json.analysis.stability }}</b>（变异系数 {{ result_json.analysis.points_cv }}）{% endif %}
+    {% if result_json.analysis.biggest_jump %} · 最大涨幅 {{ result_json.analysis.biggest_jump.from_season }} → {{ result_json.analysis.biggest_jump.to_season }} <b>+{{ result_json.analysis.biggest_jump.delta }}</b>{% endif %}
+    {% if result_json.analysis.biggest_drop %} · 最大跌幅 {{ result_json.analysis.biggest_drop.from_season }} → {{ result_json.analysis.biggest_drop.to_season }} <b>{{ result_json.analysis.biggest_drop.delta }}</b>{% endif %}
+</div>
+{% endif %}
 <script>
     $(
         function () {

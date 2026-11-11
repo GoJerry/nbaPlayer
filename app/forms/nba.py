@@ -24,5 +24,19 @@ class RetirePlayerForm(Form):
     color = StringField("背景色")
 
 
+class StatsPlayerForm(Form):
+    """官方数据源（nba_api）按英文全名查询。"""
+    name = StringField("球员英文全名", validators=[InputRequired()])
+    game = StringField("比赛类型,0常规赛 1季后赛", validators=GAME_VALIDATORS)
+    color = StringField("背景色")
+
+
+class CompareForm(Form):
+    """双人对比：两位球员的英文全名。"""
+    player1 = StringField("球员一英文全名", validators=[InputRequired()])
+    player2 = StringField("球员二英文全名", validators=[InputRequired()])
+    game = StringField("比赛类型,0常规赛 1季后赛", validators=GAME_VALIDATORS)
+
+
 if __name__ == "__main__":
     pass
